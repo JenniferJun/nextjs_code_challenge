@@ -5,7 +5,8 @@ import FormInput from "../components/form-input";
 import WelcomeBack from "../components/welcome_back";
 import { handleForm } from "./action";
 import { useFormState } from "react-dom";
-import { FilmIcon, UsersIcon } from "@heroicons/react/24/outline"; '@heroicons/react/24/outline'
+import { FilmIcon, UsersIcon } from "@heroicons/react/24/outline"; import { PASSWORD_MIN_LENGTH } from "../lib/constants";
+'@heroicons/react/24/outline'
 export default function Home() {
     const [state, action] = useFormState(handleForm, null);
 
@@ -25,7 +26,7 @@ export default function Home() {
                     type="text"
                     placeholder="Email"
                     required
-                    errors={[]}
+                    errors={state?.fieldErrors.email}
                     icon="email"
                 />
 
@@ -34,7 +35,7 @@ export default function Home() {
                     type="text"
                     placeholder="Username"
                     required
-                    errors={[]}
+                    errors={state?.fieldErrors.username}
                     icon="username"
                 />
                 <FormInput
@@ -43,14 +44,14 @@ export default function Home() {
                     placeholder="Password"
                     required
                     icon="password"
-                    errors={state?.errors ?? []}
+                    errors={state?.fieldErrors.password}
                 />
                 <FormButton text="Log in" />
 
-                {state?.errors.length === 0 ? (
-                    <WelcomeBack />
+                {state?.fieldErrors ? (
+                    null
                 ) : (
-                    ""
+                    <WelcomeBack />
                 )}
             </form>
 
