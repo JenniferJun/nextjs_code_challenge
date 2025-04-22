@@ -1,0 +1,15 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+}
+
+@layer utilities {
+}
+
+@layer components {
+  .primary-btn {
+    @apply w-full h-12 rounded-full bg-green-700 text-white  font-medium   text-center hover:bg-neutral-400 transition-colors;
+  }
+}
