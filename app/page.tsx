@@ -5,7 +5,8 @@ import FormInput from "../components/form-input";
 import WelcomeBack from "../components/welcome_back";
 import { handleForm } from "./action";
 import { useFormState } from "react-dom";
-import { FilmIcon, UsersIcon } from "@heroicons/react/24/outline"; import { PASSWORD_MIN_LENGTH } from "../lib/constants";
+import { UsersIcon } from "@heroicons/react/24/outline";
+
 '@heroicons/react/24/outline'
 export default function Home() {
     const [state, action] = useFormState(handleForm, null);
