@@ -1,12 +1,13 @@
 "use client";
 
+import { ButtonHTMLAttributes } from "react";
 import { useFormStatus } from "react-dom";
 
-interface FormButtonProps {
+interface ButtonProps {
   text: string;
 }
 
-export default function FormButton({ text }: FormButtonProps) {
+export default function Button({ text, ...rest }: ButtonProps & ButtonHTMLAttributes<HTMLButtonElement>) {
   const { pending } = useFormStatus();
   return (
     <button

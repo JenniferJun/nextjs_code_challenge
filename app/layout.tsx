@@ -20,8 +20,7 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body
-        className={`${inter.className} w-screen h-screen flex flex-col items-center justify-center bg-gradient-to-br from-red-400 via-orange-300 via-yellow-300 via-green-300 to-blue-400  
-        `}
+        className={`${inter.className} w-screen h-screen flex flex-col items-center justify-center bg-gradient-to-br from-red-400 via-orange-300 to-blue-400`}
       >
         <div className="w-[800px] h-[750px] w-min-[400px] border-2 bg-[#F8F6F5] ">
           {children}

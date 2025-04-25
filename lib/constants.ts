@@ -1,11 +1,13 @@
 import { z } from "zod";
 
 export const USERNAME_MIN_LENGTH = 5;
-export const PASSWORD_MIN_LENGTH = 10;
-export const PASSWORD_REGEX = new RegExp(/^(?=.*\d).{10,}$/);
+export const PASSWORD_MIN_LENGTH = 4;
+export const PASSWORD_REGEX = new RegExp(
+  /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*?[#?!@$%^&*-]).+$/
+);
 
 export const PASSWORD_REGEX_ERROR =
-  "Passwords should contain at least one number(123456789).";
+  "Passwords must contain at least one UPPERCASE, lowercase, number and special characters #?!@$%^&*-";
 
 export const PASSWORD_MIN_ERROR =
   "Password should be at least 10 charactors long";

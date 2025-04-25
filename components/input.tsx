@@ -2,18 +2,18 @@ import { InputHTMLAttributes } from "react";
 import { DynamicIcon } from "./DynamicIcon";
 
 
-interface FormInputProps {
+interface InputProps {
   name: string;
   errors?: string[];
   icon: string;
 }
 
-export default function FormInput({
+export default function Input({
   name,
   errors = [],
   icon,
   ...rest
-}: FormInputProps & InputHTMLAttributes<HTMLInputElement>) {
+}: InputProps & InputHTMLAttributes<HTMLInputElement>) {
   // hasError
   const hasError = errors.length > 0
 
