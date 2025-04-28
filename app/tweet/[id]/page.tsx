@@ -1,8 +1,28 @@
-"use client";
-
-import { getTweetById } from "@/lib/db";
 import Link from "next/link";
+import db from "@/lib/db";
 
+async function getTweetById(id: string) {
+    try {
+        const tweet = await db.tweet.findUnique({
+            where: { id: parseInt(id) },
+            include: {
+                user: {
+                    select: {
+                        username: true,
+                    },
+                },
+                _count: {
+                    select: {
+                        Like: true,
+                    },
+                },
+            },
+        });
+        return tweet;
+    } catch (error) {
+        console.error("Error fetching tweet:", error);
+    }
+}
 
 export default async function TweetDetailPage({ params }: { params: { id: string } }) {
     const id = Number(params.id);

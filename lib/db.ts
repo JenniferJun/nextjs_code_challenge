@@ -16,19 +16,19 @@ export default db;
 
 // createUser("jenyj");
 
-async function createTweet(tweetMessage: string) {
-  const tweet = await db.tweet.create({
-    data: {
-      content: tweetMessage,
-      user: {
-        connect: {
-          id: 1,
-        },
-      },
-    },
-  });
-  console.log(tweet);
-}
+// async function createTweet(tweetMessage: string) {
+//   const tweet = await db.tweet.create({
+//     data: {
+//       content: tweetMessage,
+//       user: {
+//         connect: {
+//           id: 1,
+//         },
+//       },
+//     },
+//   });
+//   console.log(tweet);
+// }
 
 // async function getTweet(tweetID: number) {
 //   const tweet = await db.tweet.findUnique({
@@ -80,42 +80,3 @@ async function createTweet(tweetMessage: string) {
 
 // deleteTweet();
 // lib/db.ts
-
-interface GetTweetsParams {
-  page: number;
-  pageSize: number;
-}
-
-export async function getTweets({ page, pageSize }: GetTweetsParams) {
-  const skip = (page - 1) * pageSize;
-  const tweets = await db.tweet.findMany({
-    skip,
-    take: pageSize,
-    orderBy: { created_at: "desc" },
-  });
-  const total = await db.tweet.count();
-  return { tweets, total };
-}
-
-export async function getTweetById(id: string) {
-  try {
-    const tweet = await db.tweet.findUnique({
-      where: { id: parseInt(id) },
-      include: {
-        user: {
-          select: {
-            username: true,
-          },
-        },
-        _count: {
-          select: {
-            Like: true,
-          },
-        },
-      },
-    });
-    return tweet;
-  } catch (error) {
-    console.error("Error fetching tweet:", error);
-  }
-}
