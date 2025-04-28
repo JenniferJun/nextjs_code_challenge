@@ -1,48 +1,25 @@
 "use client";
 
+import { getTweetById } from "@/lib/db";
 import Link from "next/link";
-import { useParams } from "next/navigation";
-import { useEffect, useState } from "react";
 
-interface Tweet {
-    id: number;
-    content: string;
-    created_at: Date;
-    user: {
-        username: string;
-    };
-    _count: {
-        Like: number;
-    };
-}
 
-export default function TweetDetailPage() {
-    const params = useParams();
-    const [tweet, setTweet] = useState<Tweet | null>(null);
-    const [isLoading, setIsLoading] = useState(true);
+export default async function TweetDetailPage({ params }: { params: { id: string } }) {
+    const id = Number(params.id);
+    const tweet = await getTweetById(id.toString());
 
-    useEffect(() => {
-        async function fetchTweet() {
-            try {
-                const response = await fetch(`/api/tweets/${params.id}`);
-                const data = await response.json();
-                setTweet(data);
-            } catch (error) {
-                console.error("Error fetching tweet:", error);
-            } finally {
-                setIsLoading(false);
-            }
-        }
-
-        fetchTweet();
-    }, [params.id]);
-
-    if (isLoading) {
-        return <div className="flex justify-center items-center h-screen">Loading...</div>;
+    if (isNaN(id)) {
+        return (<>
+            <div className="flex justify-center items-center h-80">Invalid tweet ID</div>
+            <HomeButton />
+        </>);
     }
 
     if (!tweet) {
-        return <div className="flex justify-center items-center h-screen">Tweet not found</div>;
+        return (<>
+            <div className="flex justify-center items-center h-80">Tweet not found</div>
+            <HomeButton />
+        </>);
     }
 
     return (
@@ -62,12 +39,19 @@ export default function TweetDetailPage() {
                     <span>{new Date(tweet.created_at).toLocaleDateString()}</span>
                 </div>
             </div>
-            <Link
-                href="/"
-                className="primary-btn flex items-center justify-center transition-colors"
-            >
-                Home
-            </Link>
+
+            <HomeButton />
         </div>
     );
-} 
+}
+
+function HomeButton() {
+    return (
+        <Link
+            href="/"
+            className="primary-btn flex items-center justify-center transition-colors"
+        >
+            Home
+        </Link>
+    );
+}

@@ -2,9 +2,8 @@
 
 import Link from "next/link";
 import { useEffect, useState } from "react";
-import getSession from "@/lib/session";
 
-'@heroicons/react/24/outline'
+
 export default function HomePage() {
     const [tweets, setTweets] = useState<{ id: number; content: string; created_at: Date; updated_at: Date; userId: number; }[]>([]);
     const [page, setPage] = useState(1);
