@@ -6,10 +6,10 @@ const inter = Inter({ subsets: ["latin"] });
 
 export const metadata: Metadata = {
   title: {
-    template: "%s | Jeny.J Property",
-    default: "Jeny.J Property",
+    template: "%s | Jeny.J Tweet",
+    default: "Jeny.J Tweet",
   },
-  description: "Sell and buy properties!",
+  description: "Tweet and share your thoughts!",
 };
 
 export default function RootLayout({
