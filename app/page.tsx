@@ -1,55 +1,62 @@
 "use client";
 
-import { handleForm } from "./action";
-import { useFormState } from "react-dom";
 import Link from "next/link";
+import { useEffect, useState } from "react";
+import getSession from "@/lib/session";
 
 '@heroicons/react/24/outline'
 export default function HomePage() {
-    const [state, action] = useFormState(handleForm, null);
+    const [tweets, setTweets] = useState<{ id: number; content: string; created_at: Date; updated_at: Date; userId: number; }[]>([]);
+    const [page, setPage] = useState(1);
+    const [total, setTotal] = useState(0);
+    const pageSize = 8;
+
+    useEffect(() => {
+        fetch(`/api/tweets?page=${page}&pageSize=${pageSize}`)
+            .then(res => res.json())
+            .then(data => {
+                setTweets(data.tweets);
+                setTotal(data.total);
+            });
+    }, [page]);
+
+    const hasPrev = page > 1;
+    const hasNext = page * pageSize < total;
 
     return (
-        <div className="flex flex-col items-center justify-center h-full p-8">
-            <h1 className="text-4xl font-bold text-gray-800 mb-6">
-                Welcome to Jeny.J Property
+        <div className="flex flex-col items-center justify-start h-full p-8">
+            <h1 className="text-4xl font-bold text-gray-800 mb-12">
+                Welcome to Jeny.J Tweets
             </h1>
-            <p className="text-lg text-gray-600 text-center mb-8 max-w-2xl">
-                Your trusted partner in finding the perfect property. Whether you're buying or selling,
-                we're here to help you every step of the way.
-            </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 w-full max-w-2xl">
-                <Link
-                    href="/properties"
-                    className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+            <ul className="w-full max-w-2xl mb-8 top-0 h-full">
+                {tweets.map(tweet => (
+                    <li
+                        key={tweet.id}
+                        className="bg-white hover:bg-gray-200 cursor-pointer p-4 rounded-lg shadow mb-2 flex flex-row justify-between"
+                        onClick={() => window.location.href = `/tweet/${tweet.id}`}
+                    >
+                        <div className="text-gray-800"><Link href={`/tweet/${tweet.id}`}>{tweet.content}</Link></div>
+                        <div className="text-xs text-gray-400">{new Date(tweet.created_at).toLocaleString()}</div>
+                    </li>
+                ))}
+            </ul>
+            <div className="flex gap-4 justify-center items-center bottom-0">
+                <button
+                    className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+                    onClick={() => setPage(page - 1)}
+                    disabled={!hasPrev}
                 >
-                    <h2 className="text-xl font-semibold text-gray-800 mb-2">Browse Properties</h2>
-                    <p className="text-gray-600">Explore our wide range of properties available for sale.</p>
-                </Link>
-
-                <Link
-                    href="/sell"
-                    className="bg-white p-6 rounded-lg shadow-md hover:shadow-lg transition-shadow"
+                    이전
+                </button>
+                <span>Page {page}</span>
+                <button
+                    className="px-4 py-2 bg-gray-200 rounded disabled:opacity-50"
+                    onClick={() => setPage(page + 1)}
+                    disabled={!hasNext}
                 >
-                    <h2 className="text-xl font-semibold text-gray-800 mb-2">Sell Your Property</h2>
-                    <p className="text-gray-600">List your property with us and reach potential buyers.</p>
-                </Link>
-            </div>
-
-            <div className="mt-8 flex gap-4 w-full">
-
-                <Link
-                    href="/log-in"
-                    className="primary-btn flex items-center justify-center transition-colors"
-                >
-                    Log In
-                </Link>
-                <Link
-                    href="/create-account"
-                    className="primary-btn flex items-center justify-center transition-colors"
-                >
-                    Create Account
-                </Link>
+                    다음
+                </button>
             </div>
         </div>
     );

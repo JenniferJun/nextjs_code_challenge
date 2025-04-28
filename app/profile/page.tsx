@@ -1,6 +1,7 @@
 
 import db from "@/lib/db";
 import getSession from "@/lib/session";
+import Link from "next/link";
 import { notFound, redirect } from "next/navigation";
 
 
@@ -65,6 +66,13 @@ export default async function Profile() {
           <form action={logOut} >
             <button className="mt-10 primary-btn  disabled:bg-green-700 disabled:text-green-300 disabled:cursor-not-allowed">Log out</button>
           </form>
+
+          <Link
+            href="/"
+            className="primary-btn flex items-center justify-center transition-colors"
+          >
+            Home
+          </Link>
         </div>
       </div>
     </div >

@@ -19,10 +19,9 @@ export default function CreateAccount() {
     <div className="text-black flex flex-col justify-center items-center pt-20">
       <div className="flex w-auto justify-center items-center">
         <UsersIcon className="h-20 w-20 text-blue-800 " name="titleIcone" />
-        <p className="text-2xl font-bold text-center px-5">Join JenyJ Property</p>
+        <p className="text-2xl font-bold text-center px-5">Join JenyJ Tweet</p>
       </div>
       <div>
-        <p className="text-2xl font-bold text-center px-5">Hello Welcom to JenyJ Property!</p>
         <p className="text-xl font-bold text-center px-5">Fill in the form below to join!</p>
       </div>
       <div className="text-black flex flex-col justify-center items-center py-10">
@@ -64,11 +63,12 @@ export default function CreateAccount() {
           />
           <Button text="Create account" />
           <Link
-            href="/"
+            href="/log-in"
             className="primary-btn flex items-center justify-center transition-colors"
           >
-            Home
+            Log in
           </Link>
+
         </form>
       </div>
     </div>

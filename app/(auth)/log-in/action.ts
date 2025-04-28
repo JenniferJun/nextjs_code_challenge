@@ -18,6 +18,7 @@ const checkEmailExists = async (email: string) => {
     },
     select: {
       id: true,
+      username: true,
     },
   });
   return Boolean(user);
@@ -52,6 +53,7 @@ export async function logIn(prevState: any, formData: FormData) {
       },
       select: {
         id: true,
+        username: true,
         password: true,
       },
     });
@@ -62,6 +64,7 @@ export async function logIn(prevState: any, formData: FormData) {
     if (ok) {
       const session = await getSession();
       session.id = user!.id;
+      session.username = user!.username;
       await session.save();
       redirect("/profile");
     } else {

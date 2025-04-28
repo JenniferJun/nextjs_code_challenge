@@ -46,12 +46,7 @@ export default function Home() {
                 >
                     Create Account
                 </Link>
-                <Link
-                    href="/"
-                    className="primary-btn flex items-center justify-center transition-colors"
-                >
-                    Home
-                </Link>
+
             </form>
 
         </div>

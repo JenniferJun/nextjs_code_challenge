@@ -14,19 +14,22 @@ export default db;
 //   console.log(user);
 // }
 
-// async function createTweet(tweetMessage: string) {
-//   const tweet = await db.tweet.create({
-//     data: {
-//       tweet: tweetMessage,
-//       user: {
-//         connect: {
-//           id: 1,
-//         },
-//       },
-//     },
-//   });
-//   console.log(tweet);
-// }
+// createUser("jenyj");
+
+async function createTweet(tweetMessage: string) {
+  const tweet = await db.tweet.create({
+    data: {
+      content: tweetMessage,
+      user: {
+        connect: {
+          id: 1,
+        },
+      },
+    },
+  });
+  console.log(tweet);
+}
+
 // async function getTweet(tweetID: number) {
 //   const tweet = await db.tweet.findUnique({
 //     where: {
@@ -69,3 +72,27 @@ export default db;
 //   });
 //   console.log(like);
 // }
+
+// async function deleteTweet() {
+//   const tweet = await db.tweet.deleteMany();
+//   console.log(tweet);
+// }
+
+// deleteTweet();
+// lib/db.ts
+
+interface GetTweetsParams {
+  page: number;
+  pageSize: number;
+}
+
+export async function getTweets({ page, pageSize }: GetTweetsParams) {
+  const skip = (page - 1) * pageSize;
+  const tweets = await db.tweet.findMany({
+    skip,
+    take: pageSize,
+    orderBy: { created_at: "desc" },
+  });
+  const total = await db.tweet.count();
+  return { tweets, total };
+}
