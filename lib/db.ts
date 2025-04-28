@@ -96,3 +96,26 @@ export async function getTweets({ page, pageSize }: GetTweetsParams) {
   const total = await db.tweet.count();
   return { tweets, total };
 }
+
+export async function getTweetById(id: string) {
+  try {
+    const tweet = await db.tweet.findUnique({
+      where: { id: parseInt(id) },
+      include: {
+        user: {
+          select: {
+            username: true,
+          },
+        },
+        _count: {
+          select: {
+            Like: true,
+          },
+        },
+      },
+    });
+    return tweet;
+  } catch (error) {
+    console.error("Error fetching tweet:", error);
+  }
+}

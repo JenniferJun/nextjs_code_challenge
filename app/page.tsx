@@ -9,6 +9,7 @@ export default function HomePage() {
     const [tweets, setTweets] = useState<{ id: number; content: string; created_at: Date; updated_at: Date; userId: number; }[]>([]);
     const [page, setPage] = useState(1);
     const [total, setTotal] = useState(0);
+    const [isLoading, setIsLoading] = useState(true);
     const pageSize = 8;
 
     useEffect(() => {
@@ -17,11 +18,16 @@ export default function HomePage() {
             .then(data => {
                 setTweets(data.tweets);
                 setTotal(data.total);
-            });
+            })
+            .finally(() => setIsLoading(false));
     }, [page]);
 
     const hasPrev = page > 1;
     const hasNext = page * pageSize < total;
+
+    if (isLoading) {
+        return <div className="flex justify-center items-center h-screen">Loading...</div>;
+    }
 
     return (
         <div className="flex flex-col items-center justify-start h-full p-8">
