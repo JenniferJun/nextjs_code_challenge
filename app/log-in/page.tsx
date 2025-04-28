@@ -41,6 +41,12 @@ export default function Home() {
                 />
                 <Button text="Log in" />
                 <Link
+                    href="/create-account"
+                    className="primary-btn flex items-center justify-center transition-colors"
+                >
+                    Create Account
+                </Link>
+                <Link
                     href="/"
                     className="primary-btn flex items-center justify-center transition-colors"
                 >
