@@ -1,30 +1,19 @@
 import TweetList from "@/components/tweet-list";
-import db from "@/lib/db";
-import { Prisma } from "@/lib/generated/prisma";
+import { getTweets } from "./action";
+import AddTweet from "@/components/addTweet";
 
-export async function getFirstTweets({ page, pageSize }) {
-    const skip = (page - 1) * pageSize;
-    const tweets = await db.tweet.findMany({
-        skip,
-        take: pageSize,
-        orderBy: { created_at: "desc" },
-    });
-    const total = await db.tweet.count();
-    return { tweets, total };
-}
-
-
-export type InitialTweets = Prisma.PromiseReturnType<
-    typeof getFirstTweets
->;
-
+export type InitialTweets = Awaited<ReturnType<typeof getTweets>>;
 
 export default async function HomePage() {
-    const initialTweets = await getFirstTweets({ page: 1, pageSize: 8 });
+    const initialTweets = await getTweets({ page: 1, pageSize: 4 });
 
     return (
-        <>
+        <div className="flex flex-col items-center justify-start h-full p-8">
+            <h1 className="text-4xl font-bold text-gray-800 mb-7">
+                Welcome to Jeny.J Tweets
+            </h1>
+            <AddTweet />
             <TweetList initialTweets={initialTweets} />
-        </>
+        </div>
     );
 }
