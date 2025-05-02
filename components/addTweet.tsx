@@ -2,7 +2,7 @@
 
 import { useFormState, useFormStatus } from "react-dom";
 import { z } from "zod";
-import { addTweet } from "@/app/action";
+import { addTweet } from "@/app/actions";
 
 const tweetSchema = z.object({
     content: z.string()

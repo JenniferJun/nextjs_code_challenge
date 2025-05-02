@@ -1,9 +1,8 @@
 "use client";
 
-import { TweetsResponse } from "@/app/action";
+import { TweetsResponse, getTweets } from "@/app/actions";
 import { useState } from "react";
 import ListTweet from "./list_tweet";
-import { getTweets } from "@/app/action";
 
 interface TweetListProps {
     initialTweets: TweetsResponse;

@@ -1,5 +1,5 @@
 import TweetList from "@/components/tweet-list";
-import { getTweets } from "./action";
+import { getTweets } from "./actions";
 import AddTweet from "@/components/addTweet";
 
 export type InitialTweets = Awaited<ReturnType<typeof getTweets>>;
