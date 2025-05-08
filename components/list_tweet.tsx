@@ -1,4 +1,7 @@
+"use client";
+
 import Link from "next/link";
+import { useRouter } from "next/navigation";
 
 interface ListTweetProps {
     id: string;
@@ -8,6 +11,7 @@ interface ListTweetProps {
 }
 
 export default function ListTweet({ id, content, created_at, username }: ListTweetProps) {
+    const router = useRouter();
     const formattedDate = new Date(created_at).toLocaleString('en-US', {
         year: 'numeric',
         month: '2-digit',
@@ -21,7 +25,7 @@ export default function ListTweet({ id, content, created_at, username }: ListTwe
         <li
             key={id}
             className="bg-white hover:bg-gray-200 cursor-pointer p-4 rounded-lg shadow mb-2 flex flex-row justify-between"
-            onClick={() => window.location.href = `/tweet/${id}`}
+            onClick={() => router.push(`/tweet/${id}`)}
         >
             <div className="flex flex-col">
                 <div className="text-gray-800">

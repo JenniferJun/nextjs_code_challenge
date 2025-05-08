@@ -99,7 +99,11 @@ export default async function TweetDetailPage({ params }: { params: { id: string
             <div className="bg-white rounded-lg shadow-md p-6 w-full">
                 <div className="flex items-center space-x-4 mb-4">
                     <div className="flex-1">
-                        <p className="text-gray-500 text-sm">{tweet.user.username}</p>
+                        <p className="text-gray-500 text-sm">
+                            <Link href={`/users/${tweet.user.username}`}>
+                                {tweet.user.username}
+                            </Link>
+                        </p>
                     </div>
                 </div>
                 <p className="text-gray-800 mb-4">{tweet.content}</p>
