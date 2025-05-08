@@ -4,6 +4,13 @@ const db = new PrismaClient();
 
 export default db;
 
+// async function truncate() {
+//   await db.tweet.deleteMany();
+//   await db.like.deleteMany();
+// }
+
+// truncate();
+
 // async function createUser(username: string) {
 //   const user = await db.user.create({
 //     data: {

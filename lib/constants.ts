@@ -1,5 +1,3 @@
-import { z } from "zod";
-
 export const USERNAME_MIN_LENGTH = 5;
 export const PASSWORD_MIN_LENGTH = 4;
 export const PASSWORD_REGEX = new RegExp(
@@ -16,3 +14,5 @@ export const USERNAME_MIN_ERROR =
   "Username should be at least 5 charactors long";
 
 export const EMAIL_ZOD_ERROR = "Only @zod.com emails are allowed.";
+
+export const TWEET_PAGE_SIZE = 5;

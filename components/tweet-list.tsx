@@ -3,6 +3,7 @@
 import { TweetsResponse, getTweets } from "@/app/actions";
 import { useState } from "react";
 import ListTweet from "./list_tweet";
+import { TWEET_PAGE_SIZE } from "@/lib/constants";
 
 interface TweetListProps {
     initialTweets: TweetsResponse;
@@ -14,7 +15,7 @@ export default function TweetList({ initialTweets }: TweetListProps) {
     const [total, setTotal] = useState(initialTweets.total);
     const [isLoading, setIsLoading] = useState(false);
 
-    const pageSize = 4;
+    const pageSize = TWEET_PAGE_SIZE;
 
     const onLoadMoreClick = async (page: number) => {
         setIsLoading(true);

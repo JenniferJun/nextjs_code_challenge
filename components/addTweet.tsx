@@ -4,9 +4,6 @@ import { useFormState, useFormStatus } from "react-dom";
 import { z } from "zod";
 import { addTweet } from "@/app/actions";
 
-const tweetSchema = z.object({
-    content: z.string()
-});
 
 interface AddTweetFormState {
     errors?: {
@@ -34,7 +31,16 @@ function SubmitButton() {
 }
 
 export default function AddTweet() {
+    const tweetSchema = z.object({
+        content: z.string()
+            .min(10, "Tweet must be at least 10 characters")
+            .max(280, "Tweet cannot exceed 280 characters")
+    });
     const [state, formAction] = useFormState(addTweet, initialState);
+
+    if (state?.success) {
+        window.location.reload();
+    }
 
     return (
         <div className="w-full max-w-2xl mb-8">
@@ -45,7 +51,7 @@ export default function AddTweet() {
                         placeholder="What's happening?"
                         className="w-full p-4 pr-24 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 resize-none"
                         rows={1}
-                        minLength={1}
+                        minLength={10}
                         maxLength={280}
                     />
                     <SubmitButton />
