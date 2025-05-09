@@ -5,6 +5,7 @@ import { Prisma } from "@prisma/client";
 import { z } from "zod";
 import getSession from "@/lib/session";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 const tweetSchema = z.object({
   content: z
@@ -49,16 +50,13 @@ export async function addTweet(prevState: any, formData: FormData) {
   const data = {
     content: formData.get("content"),
   };
-  console.log(data, "data");
 
   const result = tweetSchema.safeParse(data);
   if (!result.success) {
-    console.log(result, "result.data");
     return {
       errors: result.error.flatten().fieldErrors,
     };
   }
-  console.log(result.data, "result.data");
 
   const tweet = await db.tweet.create({
     data: {
@@ -66,8 +64,7 @@ export async function addTweet(prevState: any, formData: FormData) {
       userId: session.id,
     },
   });
-  console.log("create tweet", tweet);
-
+  revalidatePath("/");
   redirect(`/tweet/${tweet.id}`);
   //return { success: true };
 }
