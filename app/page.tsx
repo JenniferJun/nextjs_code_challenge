@@ -13,7 +13,7 @@ export default async function HomePage() {
         <div className="flex flex-col items-center justify-start h-full p-8 w-full border-red-500">
             <div className="flex justify-around items-center w-full mb-4" >
                 <h1 className="text-2xl font-bold ">
-                    Jeny.J Tweets
+                    Jeny.J Tweets  {TWEET_PAGE_SIZE}
                 </h1>
                 <div className="w-[50%] flex justify-end items-end">
                     <SearchBox />
@@ -21,6 +21,7 @@ export default async function HomePage() {
             </div >
             <AddTweet />
             <TweetList initialTweets={initialTweets} />
+
         </div>
     );
 }
