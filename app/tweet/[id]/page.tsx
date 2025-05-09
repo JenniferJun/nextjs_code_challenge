@@ -77,7 +77,6 @@ export default async function TweetDetailPage({ params }: { params: { id: string
     if (isNaN(id)) {
         return (<>
             <div className="flex justify-center items-center h-80">Invalid tweet ID</div>
-            <HomeButton />
         </>);
     }
 
@@ -85,7 +84,6 @@ export default async function TweetDetailPage({ params }: { params: { id: string
     if (!tweet) {
         return (<>
             <div className="flex justify-center items-center h-80">Tweet not found</div>
-            <HomeButton />
         </>);
     }
 
@@ -113,18 +111,12 @@ export default async function TweetDetailPage({ params }: { params: { id: string
                 </div>
             </div>
 
-            <HomeButton />
+            <Link
+                href="/"
+                className="primary-btn flex items-center justify-center transition-colors  px-2 py-2"
+            >
+                Home
+            </Link>
         </div>
-    );
-}
-
-export function HomeButton() {
-    return (
-        <Link
-            href="/"
-            className="primary-btn flex items-center justify-center transition-colors  px-2 py-2"
-        >
-            Home
-        </Link>
     );
 }

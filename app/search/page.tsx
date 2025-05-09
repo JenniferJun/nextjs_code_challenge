@@ -2,7 +2,6 @@ import { Suspense } from "react";
 import SearchBox from "@/components/search-box";
 import { searchTweets } from "./actions";
 import TweetList from "@/components/tweet-list";
-import { HomeButton } from "../tweet/[id]/page";
 
 interface SearchPageProps {
     searchParams: {

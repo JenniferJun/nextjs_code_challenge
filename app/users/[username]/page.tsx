@@ -4,7 +4,6 @@ import Link from "next/link";
 import TweetList from "@/components/tweet-list";
 import getSession from "@/lib/session";
 import ListTweet from "@/components/list_tweet";
-import { HomeButton } from "@/app/tweet/[id]/page";
 interface UserProfilePageProps {
     params: {
         username: string;
@@ -79,7 +78,12 @@ export default async function UserProfilePage({ params }: UserProfilePageProps) 
                             </Link>
                         )}
                         <div className="h-[5px]"></div>
-                        <HomeButton />
+                        <Link
+                            href="/"
+                            className="primary-btn flex items-center justify-center transition-colors  px-2 py-2"
+                        >
+                            Home
+                        </Link>
                     </div>
                 </div>
             </div>
