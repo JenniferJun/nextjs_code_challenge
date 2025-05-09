@@ -42,22 +42,30 @@ export default function TweetList({ initialTweets }: TweetListProps) {
                     />
                 ))}
             </ul>
-            <div className="flex gap-4 justify-center items-center bottom-0">
-                <button
-                    className="px-4 py-2 bg-gray-400 hover:bg-gray-200 rounded disabled:opacity-50"
-                    onClick={() => onLoadMoreClick(page - 1)}
-                    disabled={!hasPrev}
-                >
-                    이전
-                </button>
-                <span>Page {page}</span>
-                <button
-                    className="px-4 py-2 bg-gray-400 hover:bg-gray-200 rounded disabled:opacity-50"
-                    onClick={() => onLoadMoreClick(page + 1)}
-                    disabled={!hasNext}
-                >
-                    다음
-                </button>
+            <div className="flex gap-4 justify-center items-center bottom-0 w-full ">
+                <div className="w-[90px]">
+                    {hasPrev && (
+                        <button
+                            className="primary-btn"
+                            onClick={() => onLoadMoreClick(page - 1)}
+                            disabled={!hasPrev}
+                        >
+                            이전
+                        </button>
+                    )}</div>
+                <span className="w-[100px] text-center">Page {page}</span>
+                <div className="w-[90px]">
+                    {hasNext && (
+                        <button
+                            className="primary-btn"
+
+                            onClick={() => onLoadMoreClick(page + 1)}
+                            disabled={!hasNext}
+                        >
+                            다음
+                        </button>
+                    )}
+                </div>
             </div>
         </>
     );

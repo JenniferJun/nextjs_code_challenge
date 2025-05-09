@@ -3,6 +3,8 @@
 import { useFormState, useFormStatus } from "react-dom";
 import { editProfile } from "./actions";
 import { useOptimistic } from "react";
+import { HomeButton } from "@/app/tweet/[id]/page";
+import Link from "next/link";
 
 interface EditProfileFormProps {
     user: {
@@ -10,19 +12,6 @@ interface EditProfileFormProps {
         email: string;
         bio: string | null;
     };
-}
-
-function SubmitButton() {
-    const { pending } = useFormStatus();
-    return (
-        <button
-            type="submit"
-            disabled={pending}
-            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600 disabled:opacity-50"
-        >
-            {pending ? "Saving..." : "Save Changes"}
-        </button>
-    );
 }
 
 export default function EditProfileForm({ user }: EditProfileFormProps) {
@@ -34,7 +23,7 @@ export default function EditProfileForm({ user }: EditProfileFormProps) {
             ...newData,
         })
     );
-
+    const { pending } = useFormStatus();
     return (
         <form action={formAction} className="space-y-4">
             <div>
@@ -112,8 +101,22 @@ export default function EditProfileForm({ user }: EditProfileFormProps) {
                 )}
             </div>
 
-            <div className="pt-4">
-                <SubmitButton />
+            <div className="pt-4 flex-col justify-between items-center">
+
+                <button
+                    type="submit"
+                    disabled={pending}
+                    className="primary-btn"
+                >
+                    {pending ? "Saving..." : "Save Changes"}
+                </button>
+                <div className="h-[5px]"></div>
+                <Link
+                    href="/"
+                    className="primary-btn"
+                >
+                    Home
+                </Link>
             </div>
         </form>
     );

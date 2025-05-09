@@ -1,7 +1,6 @@
 "use client";
 
 import { useFormState, useFormStatus } from "react-dom";
-import { z } from "zod";
 import { addTweet } from "@/app/actions";
 
 
@@ -17,33 +16,20 @@ const initialState: AddTweetFormState = {
     success: false,
 };
 
-function SubmitButton() {
-    const { pending } = useFormStatus();
-    return (
-        <button
-            type="submit"
-            disabled={pending}
-            className="absolute right-2 bottom-4 px-4 py-2 bg-gray-400 rounded text-white hover:bg-gray-200 disabled:opacity-50 text-sm"
-        >
-            {pending ? "Adding..." : "Add"}
-        </button>
-    );
-}
-
 export default function AddTweet() {
-    const tweetSchema = z.object({
-        content: z.string()
-            .min(10, "Tweet must be at least 10 characters")
-            .max(280, "Tweet cannot exceed 280 characters")
-    });
+
     const [state, formAction] = useFormState(addTweet, initialState);
+
+    console.log(state, "state");
 
     if (state?.success) {
         window.location.reload();
     }
+    const { pending } = useFormStatus();
+    console.log(state, "state", pending, "pending");
 
     return (
-        <div className="w-full max-w-2xl mb-8">
+        <div className="w-full max-w-2xl mb-3">
             <form action={formAction} className="space-y-4">
                 <div className="relative">
                     <textarea
@@ -54,7 +40,13 @@ export default function AddTweet() {
                         minLength={10}
                         maxLength={280}
                     />
-                    <SubmitButton />
+                    <button
+                        type="submit"
+                        disabled={pending}
+                        className="absolute right-2 top-3 px-4 py-2  bg-green-700  rounded-full text-white hover:bg-neutral-400 transition-colors disabled:opacity-50 text-sm"
+                    >
+                        {pending ? "Adding..." : "Add"}
+                    </button>
                     {state?.errors?.content && state.errors.content.length > 0 && (
                         <p className="text-red-500 text-sm mt-1">
                             {state.errors.content[0]}

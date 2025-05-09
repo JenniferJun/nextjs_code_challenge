@@ -4,6 +4,7 @@ import Link from "next/link";
 import TweetList from "@/components/tweet-list";
 import getSession from "@/lib/session";
 import ListTweet from "@/components/list_tweet";
+import { HomeButton } from "@/app/tweet/[id]/page";
 interface UserProfilePageProps {
     params: {
         username: string;
@@ -68,18 +69,22 @@ export default async function UserProfilePage({ params }: UserProfilePageProps) 
                         <p className="text-gray-600">{user.email}</p>
                         {user.bio && <p className="mt-2">{user.bio}</p>}
                     </div>
-                    {isOwner && (
-                        <Link
-                            href={`/users/${user.username}/edit`}
-                            className="bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600"
-                        >
-                            Edit Profile
-                        </Link>
-                    )}
+                    <div className="w-[200px] flex-col gap-2">
+                        {isOwner && (
+                            <Link
+                                href={`/users/${user.username}/edit`}
+                                className="primary-btn flex items-center justify-center transition-colors  px-2 py-2"
+                            >
+                                Edit Profile
+                            </Link>
+                        )}
+                        <div className="h-[5px]"></div>
+                        <HomeButton />
+                    </div>
                 </div>
             </div>
 
-            <div className="space-y-4   h-[500px] overflow-y-auto">
+            <div className="space-y-4 pr-3 h-[500px] overflow-y-auto">
                 <h2 className="text-xl font-semibold">Tweets</h2>
 
 

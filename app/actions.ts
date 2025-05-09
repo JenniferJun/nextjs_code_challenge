@@ -5,9 +5,13 @@ import { Prisma } from "@/lib/generated/prisma";
 import { z } from "zod";
 import getSession from "@/lib/session";
 import { redirect } from "next/navigation";
+import { revalidatePath } from "next/cache";
 
 const tweetSchema = z.object({
-  content: z.string(),
+  content: z
+    .string()
+    .min(10, "Tweet must be at least 10 characters")
+    .max(280, "Tweet cannot exceed 280 characters"),
 });
 
 interface GetTweetsParams {
@@ -46,20 +50,27 @@ export async function addTweet(prevState: any, formData: FormData) {
   const data = {
     content: formData.get("content"),
   };
+  console.log(data, "data");
 
   const result = tweetSchema.safeParse(data);
   if (!result.success) {
+    console.log(result, "result.data");
     return {
       errors: result.error.flatten().fieldErrors,
     };
   }
+  console.log(result.data, "result.data");
 
-  await db.tweet.create({
+  const tweet = await db.tweet.create({
     data: {
       content: result.data.content,
       userId: session.id,
     },
   });
+  console.log("create tweet", tweet);
+
+  redirect(`/tweet/${tweet.id}`);
+  //return { success: true };
 }
 
 export type TweetsResponse = Prisma.PromiseReturnType<typeof getTweets>;

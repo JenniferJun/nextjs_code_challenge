@@ -99,9 +99,9 @@ export default async function TweetDetailPage({ params }: { params: { id: string
             <div className="bg-white rounded-lg shadow-md p-6 w-full">
                 <div className="flex items-center space-x-4 mb-4">
                     <div className="flex-1">
-                        <p className="text-gray-500 text-sm">
+                        <p className="text-gray-500 text-sm underline font-bold">
                             <Link href={`/users/${tweet.user.username}`}>
-                                {tweet.user.username}
+                                @{tweet.user.username}
                             </Link>
                         </p>
                     </div>
@@ -118,11 +118,11 @@ export default async function TweetDetailPage({ params }: { params: { id: string
     );
 }
 
-function HomeButton() {
+export function HomeButton() {
     return (
         <Link
             href="/"
-            className="primary-btn flex items-center justify-center transition-colors"
+            className="primary-btn flex items-center justify-center transition-colors  px-2 py-2"
         >
             Home
         </Link>

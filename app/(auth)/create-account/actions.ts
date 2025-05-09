@@ -10,8 +10,6 @@ import { z } from "zod";
 import { redirect } from "next/navigation";
 import getSession from "@/lib/session";
 
-const checkUsername = (username: string) => !username.includes("potato");
-
 const checkPasswords = ({
   password,
   confirm_password,
@@ -27,8 +25,7 @@ const formSchema = z
         invalid_type_error: "Username must be a string!",
       })
       .toLowerCase()
-      .trim()
-      .refine(checkUsername, "No potatoes allowed!"),
+      .trim(),
     email: z.string().email().toLowerCase(),
     password: z
       .string()

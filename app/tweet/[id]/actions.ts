@@ -5,7 +5,7 @@ import getSession from "@/lib/session";
 import { revalidateTag } from "next/cache";
 
 export async function likePost(tweetId: number) {
-  await new Promise((r) => setTimeout(r, 10000));
+  await new Promise((r) => setTimeout(r, 1000));
   const session = await getSession();
   try {
     await db.like.create({
@@ -19,7 +19,7 @@ export async function likePost(tweetId: number) {
 }
 
 export async function dislikePost(tweetId: number) {
-  await new Promise((r) => setTimeout(r, 10000));
+  await new Promise((r) => setTimeout(r, 1000));
   try {
     const session = await getSession();
     await db.like.delete({

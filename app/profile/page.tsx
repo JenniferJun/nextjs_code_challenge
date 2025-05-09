@@ -42,7 +42,7 @@ export default async function Profile() {
   }
 
   return (
-    <div className="flex flex-col items-center justify-center h-full p-8">
+    <div className="flex flex-col items-center justify-start h-full p-8">
       <div className="w-full max-w-2xl bg-white rounded-lg shadow-md p-10">
         <h1 className="text-3xl font-bold text-gray-800 mb-6">Profile</h1>
 
@@ -67,12 +67,16 @@ export default async function Profile() {
             <button className="mt-10 primary-btn  disabled:bg-green-700 disabled:text-green-300 disabled:cursor-not-allowed">Log out</button>
           </form>
 
+
           <Link
-            href="/"
+            href={`/users/${user.username}`}
             className="primary-btn flex items-center justify-center transition-colors"
           >
-            Home
+            My Information
           </Link>
+
+
+
         </div>
       </div>
     </div >

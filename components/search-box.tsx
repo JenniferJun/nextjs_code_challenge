@@ -26,22 +26,25 @@ export default function SearchBox() {
                     router.push(`/search?${createQueryString("q", query)}`);
                 }
             }}
-            className="mb-6"
+            className="mb-0"
         >
             <div className="flex gap-2">
                 <input
                     type="search"
                     name="q"
                     placeholder="Search tweets..."
+                    minLength={1}
                     defaultValue={searchParams.get("q") ?? ""}
                     className="flex-1 px-4 py-2 border rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
                 />
-                <button
-                    type="submit"
-                    className="px-4 py-2 bg-blue-500 text-white rounded-lg hover:bg-blue-600"
-                >
-                    Search
+
+
+                <button type="submit" className="primary-btn w-[50px] h-[40px] ">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                        <path strokeLinecap="round" strokeLinejoin="round" d="M21 21l-5.197-5.197m0 0A7.5 7.5 0 105.196 5.196a7.5 7.5 0 0010.607 10.607z" />
+                    </svg>
                 </button>
+
             </div>
         </form>
     );

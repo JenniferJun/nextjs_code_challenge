@@ -14,7 +14,12 @@ import getSession from "@/lib/session";
 
 const editProfileSchema = z
   .object({
-    username: z.string().min(1, "Username is required"),
+    username: z
+      .string({
+        invalid_type_error: "Username must be a string!",
+      })
+      .toLowerCase()
+      .trim(),
     email: z.string().email("Invalid email address"),
     bio: z.string().optional(),
     password: z
