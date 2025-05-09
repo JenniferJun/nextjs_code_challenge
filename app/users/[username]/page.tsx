@@ -91,16 +91,19 @@ export default async function UserProfilePage({ params }: UserProfilePageProps) 
             <div className="space-y-4 pr-3 h-[500px] overflow-y-auto">
                 <h2 className="text-xl font-semibold">Tweets</h2>
 
-
-                {user.Tweet.tweets.map((tweet) => (
-                    <ListTweet
-                        key={tweet.id}
-                        id={tweet.id.toString()}
-                        content={tweet.content || ""}
-                        created_at={tweet.created_at.toISOString()}
-                        username={tweet.user?.username || "Unknown"}
-                    />
-                ))}
+                {user.Tweet.tweets.length > 0 ? (
+                    user.Tweet.tweets.map((tweet) => (
+                        <ListTweet
+                            key={tweet.id}
+                            id={tweet.id.toString()}
+                            content={tweet.content || ""}
+                            created_at={tweet.created_at.toISOString()}
+                            username={tweet.user?.username || "Unknown"}
+                        />
+                    ))
+                ) : (
+                    <p className="text-gray-600">No tweets found</p>
+                )}
 
             </div>
         </div>
