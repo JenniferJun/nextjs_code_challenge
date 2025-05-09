@@ -1,11 +1,10 @@
 "use server";
 
 import db from "@/lib/db";
-import { Prisma } from "@/lib/generated/prisma";
+import { Prisma } from "@prisma/client";
 import { z } from "zod";
 import getSession from "@/lib/session";
 import { redirect } from "next/navigation";
-import { revalidatePath } from "next/cache";
 
 const tweetSchema = z.object({
   content: z
