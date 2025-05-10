@@ -1,7 +1,6 @@
 import { notFound } from "next/navigation";
 import db from "@/lib/db";
 import Link from "next/link";
-import TweetList from "@/components/tweet-list";
 import getSession from "@/lib/session";
 import ListTweet from "@/components/list_tweet";
 interface UserProfilePageProps {
