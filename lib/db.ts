@@ -80,10 +80,19 @@ export default db;
 //   console.log(like);
 // }
 
-// async function deleteTweet() {
+// async function deleteTweets() {
 //   const tweet = await db.tweet.deleteMany();
 //   console.log(tweet);
 // }
 
+// async function deleteTweet() {
+//   const tweet = await db.tweet.delete({
+//     where: {
+//       id: 10,
+//     },
+//   });
+//   console.log(tweet);
+// }
+
 // deleteTweet();
-// lib/db.ts
+// // lib/db.ts

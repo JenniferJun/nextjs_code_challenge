@@ -1,9 +1,9 @@
 import Link from "next/link";
 import db from "@/lib/db";
-import { notFound } from "next/navigation";
 import { unstable_cache as nextCache } from "next/cache";
 import getSession from "@/lib/session";
 import LikeButton from "@/components/like-button";
+import { redirect } from "next/navigation";
 
 async function getTweetById(id: string) {
     try {
@@ -13,6 +13,7 @@ async function getTweetById(id: string) {
                 user: {
                     select: {
                         username: true,
+                        id: true,
                     },
                 },
                 _count: {
@@ -73,6 +74,7 @@ function getCachedLikeStatus(tweetId: number) {
 
 export default async function TweetDetailPage({ params }: { params: { id: string } }) {
     const id = Number(params.id);
+    const session = await getSession();
 
     if (isNaN(id)) {
         return (<>
@@ -86,7 +88,7 @@ export default async function TweetDetailPage({ params }: { params: { id: string
             <div className="flex justify-center items-center h-80">Tweet not found</div>
         </>);
     }
-
+    const isOwner = session?.id === tweet?.user.id;
     const { likeCount, isLiked } = await getLikeStatus(id);
 
     return (
@@ -110,13 +112,29 @@ export default async function TweetDetailPage({ params }: { params: { id: string
                     <span>{new Date(tweet.created_at).toLocaleDateString()}</span>
                 </div>
             </div>
-
-            <Link
-                href="/"
-                className="primary-btn flex items-center justify-center transition-colors  px-2 py-2"
-            >
-                Home
-            </Link>
+            <div className="flex flex- items-center justify-center gap-4">
+                {isOwner && (
+                    <form action={async () => {
+                        'use server';
+                        await db.tweet.delete({
+                            where: {
+                                id,
+                            },
+                        });
+                        redirect('/');
+                    }}>
+                        <button className="primary-btn w-[300px]">
+                            Delete
+                        </button>
+                    </form>
+                )}
+                <Link
+                    href="/"
+                    className="primary-btn  w-[300px] flex items-center justify-center transition-colors px-2 py-2"
+                >
+                    Home
+                </Link>
+            </div>
         </div>
     );
 }
